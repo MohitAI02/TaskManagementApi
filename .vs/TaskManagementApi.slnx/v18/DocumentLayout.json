@@ -1,0 +1,75 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mohit\\task\\TaskManagementApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{524CCF4E-51B2-49C9-8A1C-CEF6BA24FE9E}|TaskManagementApi.csproj|c:\\users\\mohit\\task\\taskmanagementapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{524CCF4E-51B2-49C9-8A1C-CEF6BA24FE9E}|TaskManagementApi.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{524CCF4E-51B2-49C9-8A1C-CEF6BA24FE9E}|TaskManagementApi.csproj|c:\\users\\mohit\\task\\taskmanagementapi\\dtos\\auth\\loginrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{524CCF4E-51B2-49C9-8A1C-CEF6BA24FE9E}|TaskManagementApi.csproj|solutionrelative:dtos\\auth\\loginrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{524CCF4E-51B2-49C9-8A1C-CEF6BA24FE9E}|TaskManagementApi.csproj|c:\\users\\mohit\\task\\taskmanagementapi\\taskmanagementapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{524CCF4E-51B2-49C9-8A1C-CEF6BA24FE9E}|TaskManagementApi.csproj|solutionrelative:taskmanagementapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\mohit\\task\\TaskManagementApi\\DTOs\\Auth\\LoginRequestDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Auth\\LoginRequestDto.cs",
+              "ToolTip": "C:\\Users\\mohit\\task\\TaskManagementApi\\DTOs\\Auth\\LoginRequestDto.cs",
+              "RelativeToolTip": "DTOs\\Auth\\LoginRequestDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T05:25:00.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaskManagementApi",
+              "DocumentMoniker": "C:\\Users\\mohit\\task\\TaskManagementApi\\TaskManagementApi.csproj",
+              "RelativeDocumentMoniker": "TaskManagementApi.csproj",
+              "ToolTip": "C:\\Users\\mohit\\task\\TaskManagementApi\\TaskManagementApi.csproj",
+              "RelativeToolTip": "TaskManagementApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-28T05:24:26.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\mohit\\task\\TaskManagementApi\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\mohit\\task\\TaskManagementApi\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T05:18:41.783Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
