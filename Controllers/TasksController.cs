@@ -22,7 +22,7 @@ namespace TaskManagementApi.Controllers
             CreateTaskDto dto,
             [FromHeader(Name = LoginHeader)] string loginId)
         {
-            var task = await _taskService.CreateTaskAsync(dto, loginId);
+            TaskDto? task = await _taskService.CreateTaskAsync(dto, loginId);
 
             if (task == null)
             {
@@ -31,6 +31,7 @@ namespace TaskManagementApi.Controllers
 
             return CreatedAtAction(nameof(GetTaskById), new { taskId = task.taskId }, task);
         }
+
 
         [HttpGet]
         public async Task<ActionResult<List<TaskDto>>> GetAllTasks([FromQuery] TaskFilterDto filter)
@@ -47,7 +48,7 @@ namespace TaskManagementApi.Controllers
         [HttpGet("{taskId}")]
         public async Task<ActionResult<TaskDto>> GetTaskById(int taskId)
         {
-            var task = await _taskService.GetTaskByIdAsync(taskId);
+            TaskDto? task = await _taskService.GetTaskByIdAsync(taskId);
 
             if (task == null)
             {
@@ -64,15 +65,16 @@ namespace TaskManagementApi.Controllers
             return Ok(await _taskService.GetMyTasksAsync(loginId));
         }
 
+
         [HttpPut("{taskId}/start")]
         public async Task<ActionResult<TaskDto>> StartTask(
             int taskId,
             [FromHeader(Name = LoginHeader)] string loginId)
         {
-            var task = await _taskService.StartTaskAsync(taskId, loginId);
+            TaskDto? task = await _taskService.StartTaskAsync(taskId, loginId);
 
             if (task == null)
-            {
+            {  
                 return BadRequest(new { message = "Task cannot be started." });
             }
 
@@ -84,7 +86,7 @@ namespace TaskManagementApi.Controllers
             int taskId,
             [FromHeader(Name = LoginHeader)] string loginId)
         {
-            var task = await _taskService.SubmitForReviewAsync(taskId, loginId);
+            TaskDto? task = await _taskService.SubmitForReviewAsync(taskId, loginId);
 
             if (task == null)
             {
@@ -94,12 +96,13 @@ namespace TaskManagementApi.Controllers
             return Ok(task);
         }
 
+
         [HttpPut("{taskId}/done")]
         public async Task<ActionResult<TaskDto>> MarkDone(
             int taskId,
             [FromHeader(Name = LoginHeader)] string loginId)
         {
-            var task = await _taskService.MarkDoneAsync(taskId, loginId);
+            TaskDto? task = await _taskService.MarkDoneAsync(taskId, loginId);
 
             if (task == null)
             {
@@ -114,7 +117,7 @@ namespace TaskManagementApi.Controllers
             int taskId,
             [FromHeader(Name = LoginHeader)] string loginId)
         {
-            var task = await _taskService.DropTaskAsync(taskId, loginId);
+            TaskDto? task = await _taskService.DropTaskAsync(taskId, loginId);
 
             if (task == null)
             {

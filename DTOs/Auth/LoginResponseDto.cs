@@ -2,10 +2,10 @@
 {
     public class LoginResponseDto
     {
-        public int userId { get; set; }
-        public required string loginId { get; set; }
-        public required string name { get; set; }
-        public required string designation { get; set; }
-        public required string role { get; set; }
+        public int UserId { get; set; }
+        public required string LoginId { get; set; }
+        public required string Name { get; set; }
+        public required string Designation { get; set; }
+        public required string Role { get; set; }
     }
 }

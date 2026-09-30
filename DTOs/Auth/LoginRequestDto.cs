@@ -5,9 +5,9 @@ namespace TaskManagementApi.DTOs.Auth
     public class LoginRequestDto
     {
         [Required]
-        public required string loginId { get; set; }
+        public required string LoginId { get; set; }
 
         [Required]
-        public required string password { get; set; }
+        public required string Password { get; set; }
     }
 }

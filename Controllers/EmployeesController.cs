@@ -15,16 +15,11 @@ namespace TaskManagementApi.Controllers
             _employeeService = employeeService;
         }
 
-        // ============================================================
-        // CREATE EMPLOYEE
-        // POST: api/Employees
-        // ============================================================
-
         [HttpPost]
         public async Task<ActionResult<EmployeeDto>> CreateEmployee(
             CreateEmployeeDto dto)
         {
-            var employee = await _employeeService
+            EmployeeDto? employee = await _employeeService
                 .CreateEmployeeAsync(dto);
 
             if (employee == null)
@@ -37,36 +32,24 @@ namespace TaskManagementApi.Controllers
 
             return CreatedAtAction(
                 nameof(GetEmployee),
-                new { loginId = employee.loginId },
+                new { loginId = employee.LoginId },
                 employee);
         }
-
-
-        // ============================================================
-        // GET ALL EMPLOYEES
-        // GET: api/Employees
-        // ============================================================
 
         [HttpGet]
         public async Task<ActionResult<List<EmployeeDto>>> GetAllEmployees()
         {
-            var employees = await _employeeService
+            List<EmployeeDto> employees = await _employeeService
                 .GetAllEmployeesAsync();
 
             return Ok(employees);
         }
 
-
-        // ============================================================
-        // GET EMPLOYEE BY LOGIN ID
-        // GET: api/Employees/{loginId}
-        // ============================================================
-
         [HttpGet("{loginId}")]
         public async Task<ActionResult<EmployeeDto>> GetEmployee(
             string loginId)
         {
-            var employee = await _employeeService
+            EmployeeDto? employee = await _employeeService
                 .GetEmployeeAsync(loginId);
 
             if (employee == null)

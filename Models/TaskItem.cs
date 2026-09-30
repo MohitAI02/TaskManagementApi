@@ -1,32 +1,41 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManagementApi.Models
 {
     public class TaskItem
     {
         [Key]
-        public int task_id { get; set; }
+        [Column("task_id")]
+        public int TaskId { get; set; }
 
         [Required]
-        public required string title { get; set; }
+        [Column("title")]
+        public required string Title { get; set; }
 
-        public string? description { get; set; }
-
-        [Required]
-        public DateTime create_date { get; set; }
-
-        [Required]
-        public DateTime due_date { get; set; }
-
-        public DateTime? actual_completed_date { get; set; }
+        [Column("description")]
+        public string? Description { get; set; }
 
         [Required]
-        public required string status { get; set; }
+        [Column("create_date")]
+        public DateTime CreateDate { get; set; }
 
         [Required]
-        public required string assigned_to { get; set; }
+        [Column("due_date")]
+        public DateTime DueDate { get; set; }
+        [Column("actual_completed_date")]
+        public DateTime? ActualCompleted_date { get; set; }
 
         [Required]
-        public required string created_by { get; set; }
+        [Column("status")]
+        public required string Status { get; set; }
+
+        [Required]
+        [Column("assigned_to")]
+        public required string AssignedTo { get; set; }
+
+        [Required]
+        [Column("created_by")]
+        public required string CreatedDy { get; set; }
     }
 }

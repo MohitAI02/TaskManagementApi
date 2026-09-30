@@ -17,20 +17,20 @@ namespace TaskManagementApi.Services
 
         public async Task<EmployeeReportDto?> GetEmployeeReportAsync(string loginId)
         {
-            var employee = await _context.Users
+            User? employee = await _context.Users
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u =>
-                    u.login_id == loginId &&
+                    u.LoginId == loginId &&
                     u.Role != null &&
-                    u.Role.role_name == "EMPLOYEE");
+                    u.Role.RoleName == "EMPLOYEE");
 
             if (employee == null)
             {
                 return null;
             }
 
-            var tasks = await _context.Tasks
-                .Where(t => t.assigned_to == loginId)
+            List<TaskItem> tasks = await _context.Tasks
+                .Where(t => t.AssignedTo == loginId)
                 .ToListAsync();
 
             return BuildReport(employee, tasks);
@@ -38,19 +38,19 @@ namespace TaskManagementApi.Services
 
         public async Task<List<EmployeeReportDto>> GetAllEmployeeReportsAsync()
         {
-            var employees = await _context.Users
+            List<User> employees = await _context.Users
                 .Include(u => u.Role)
-                .Where(u => u.Role != null && u.Role.role_name == "EMPLOYEE")
+                .Where(u => u.Role != null && u.Role.RoleName == "EMPLOYEE")
                 .ToListAsync();
 
-            var allTasks = await _context.Tasks.ToListAsync();
+            List<TaskItem> allTasks = await _context.Tasks.ToListAsync();
 
-            var reports = new List<EmployeeReportDto>();
+            List<EmployeeReportDto> reports = new List<EmployeeReportDto>();
 
-            foreach (var employee in employees)
+            foreach (User employee in employees)
             {
-                var employeeTasks = allTasks
-                    .Where(t => t.assigned_to == employee.login_id)
+                List<TaskItem> employeeTasks = allTasks
+                    .Where(t => t.AssignedTo == employee.LoginId)
                     .ToList();
 
                 reports.Add(BuildReport(employee, employeeTasks));
@@ -61,28 +61,28 @@ namespace TaskManagementApi.Services
 
         private static EmployeeReportDto BuildReport(User employee, List<TaskItem> tasks)
         {
-            var today = DateTime.Today;
+            DateTime today = DateTime.Today;
 
-            var totalAssigned = tasks.Count;
+            int totalAssigned = tasks.Count;
 
-            var completedInTime = tasks.Count(t =>
-                t.status == "Done" &&
-                t.actual_completed_date.HasValue &&
-                t.actual_completed_date.Value <= t.due_date);
+            int completedInTime = tasks.Count(t =>
+                t.Status == "Done" &&
+                t.ActualCompleted_date.HasValue &&
+                t.ActualCompleted_date.Value <= t.DueDate);
 
-            var overdueCount = tasks.Count(t =>
-                t.due_date < today &&
-                t.status != "Done" &&
-                t.status != "Dropped");
+            int overdueCount = tasks.Count(t =>
+                t.DueDate < today &&
+                t.Status != "Done" &&
+                t.Status != "Dropped");
 
             return new EmployeeReportDto
             {
-                loginId = employee.login_id,
-                name = employee.name,
-                totalAssigned = totalAssigned,
-                completedInTime = completedInTime,
-                overdueCount = overdueCount,
-                ratioCompletedToOverdue = $"{completedInTime}:{overdueCount}"
+                LoginId = employee.LoginId,
+                Name = employee.Name,
+                TotalAssigned = totalAssigned,
+                CompletedInTime = completedInTime,
+                OverdueCount = overdueCount,
+                RatioCompletedToOverdue = $"{completedInTime}:{overdueCount}"
             };
         }
     }

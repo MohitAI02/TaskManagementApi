@@ -1,13 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManagementApi.Models
 {
+    [Table("roles")] 
     public class Role
     {
         [Key]
-        public int role_id { get; set; }
+        [Column("role_id")]
+        public int RoleId { get; set; } 
 
         [Required]
-        public required string role_name { get; set; }
+        [Column("role_name")]
+        public required string RoleName { get; set; }
     }
 }

@@ -15,14 +15,13 @@ namespace TaskManagementApi.Controllers
             _authService = authService;
         }
 
-  
+
 
         [HttpPost("login")]
-        public async Task<ActionResult<LoginResponseDto>> Login(
-            LoginRequestDto request)
+        public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestDto request)
         {
-            var user = await _authService.LoginAsync(request);
-
+            LoginResponseDto? user = await _authService.LoginAsync(request);
+  
             if (user == null)
             {
                 return Unauthorized(new

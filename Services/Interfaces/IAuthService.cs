@@ -2,7 +2,7 @@
 
 namespace TaskManagementApi.Services.Interfaces
 {
-    public interface IAuthService
+    public interface IAuthService 
     {
         Task<LoginResponseDto?> LoginAsync(LoginRequestDto request);
     }

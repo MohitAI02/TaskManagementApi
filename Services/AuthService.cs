@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManagementApi.Data;
 using TaskManagementApi.DTOs.Auth;
+using TaskManagementApi.Models;
 using TaskManagementApi.Services.Interfaces;
 
 namespace TaskManagementApi.Services
@@ -16,11 +17,10 @@ namespace TaskManagementApi.Services
 
         public async Task<LoginResponseDto?> LoginAsync(LoginRequestDto request)
         {
-            var user = await _context.Users
-                .Include(u => u.Role)
+             User? user = await _context.Users
                 .FirstOrDefaultAsync(u =>
-                    u.login_id == request.loginId &&
-                    u.password == request.password);
+                    u.LoginId == request.LoginId &&
+                    u.Password == request.Password);
 
             if (user == null)
             {
@@ -29,11 +29,11 @@ namespace TaskManagementApi.Services
 
             return new LoginResponseDto
             {
-                userId = user.user_id,
-                loginId = user.login_id,
-                name = user.name,
-                designation = user.designation,
-                role = user.Role!.role_name
+                UserId = user.UserId,
+                LoginId = user.LoginId,
+                Name = user.Name,
+                Designation = user.Designation,
+                Role = user.Role!.RoleName
             };
         }
     }

@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using TaskManagementApi.DTOs.Employees;
 using TaskManagementApi.DTOs.Reports;
 using TaskManagementApi.Services.Interfaces;
 
@@ -22,7 +23,7 @@ namespace TaskManagementApi.Controllers
         public async Task<ActionResult<EmployeeReportDto>> GetEmployeeReport(
             [FromHeader(Name = LoginHeader)] string loginId)
         {
-            var report = await _reportService.GetEmployeeReportAsync(loginId);
+            EmployeeReportDto? report = await _reportService.GetEmployeeReportAsync(loginId);
 
             if (report == null)
             {
@@ -35,7 +36,7 @@ namespace TaskManagementApi.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<List<EmployeeReportDto>>> GetAllReports()
         {
-            var reports = await _reportService.GetAllEmployeeReportsAsync();
+            List<EmployeeReportDto> reports = await _reportService.GetAllEmployeeReportsAsync();
 
             return Ok(reports);
         }

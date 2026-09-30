@@ -1,26 +1,33 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManagementApi.Models
 {
     public class User
     {
         [Key]
-        public int user_id { get; set; }
+        [Column("user_id")]
+        public int UserId { get; set; }
 
         [Required]
-        public required string login_id { get; set; }
+        [Column("login_id")]
+        public required string LoginId { get; set; }
 
         [Required]
-        public required string password { get; set; }
+        [Column("password")]
+        public required string Password { get; set; }
 
         [Required]
-        public int role_id { get; set; }
+        [Column("role_id")]
+        public int RoleId { get; set; }
 
         [Required]
-        public required string name { get; set; }
+        [Column("name")]
+        public required string Name { get; set; }
 
         [Required]
-        public required string designation { get; set; }
+        [Column("designation")]
+        public required string Designation { get; set; }
 
         public Role? Role { get; set; }
     }

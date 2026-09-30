@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManagementApi.Data;
 
-//using TaskManagementApi.Data;
+
 using TaskManagementApi.DTOs.Tasks;
 using TaskManagementApi.Models;
 using TaskManagementApi.Services.Interfaces;
@@ -20,23 +20,23 @@ namespace TaskManagementApi.Services
 
         public async Task<TaskDto?> CreateTaskAsync(CreateTaskDto dto, string createdBy)
         {
-            var activeTaskCount = await _context.Tasks
-                .CountAsync(t => t.assigned_to == dto.assignedTo &&
-                                 t.status != "Done" &&
-                                 t.status != "Dropped");
+            int activeTaskCount = await _context.Tasks
+                .CountAsync(t => t.AssignedTo == dto.AssignedTo &&
+                                 t.Status != "Done" &&
+                                 t.Status != "Dropped");
 
             if (activeTaskCount >= MaxActiveTasks)
                 return null;
 
-            var task = new TaskItem
+            TaskItem task = new TaskItem
             {
-                title = dto.title,
-                description = dto.description,
-                create_date = DateTime.Today,
-                due_date = dto.dueDate.Date,
-                status = "Pending",
-                assigned_to = dto.assignedTo,
-                created_by = createdBy
+                Title = dto.Title,
+                Description = dto.Description,
+                CreateDate = DateTime.Today,
+                DueDate = dto.DueDate.Date,
+                Status = "Pending",
+                AssignedTo = dto.AssignedTo,
+                CreatedDy = createdBy
             };
 
             _context.Tasks.Add(task);
@@ -47,29 +47,29 @@ namespace TaskManagementApi.Services
 
         public async Task<List<TaskDto>> GetAllTasksAsync(TaskFilterDto filter)
         {
-            var query = _context.Tasks.AsQueryable();
+            IQueryable<TaskItem> query = _context.Tasks.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(filter.status))
-                query = query.Where(t => t.status == filter.status);
+            if (!string.IsNullOrWhiteSpace(filter.Status))
+                query = query.Where(t => t.Status == filter.Status);
 
-            if (filter.fromDate.HasValue)
-                query = query.Where(t => t.due_date >= filter.fromDate.Value.Date);
+            if (filter.FromDate.HasValue)
+                query = query.Where(t => t.DueDate >= filter.FromDate.Value.Date);
 
-            if (filter.toDate.HasValue)
-                query = query.Where(t => t.due_date <= filter.toDate.Value.Date);
+            if (filter.ToDate.HasValue)
+                query = query.Where(t => t.DueDate <= filter.ToDate.Value.Date);
 
-            var tasks = await query.ToListAsync();
+            List<TaskItem> tasks = await query.ToListAsync();
             return tasks.Select(MapToDto).ToList();
         }
 
         public async Task<List<TaskDto>> GetOverdueTasksAsync()
         {
-            var today = DateTime.Today;
+            DateTime today = DateTime.Today;
 
-            var tasks = await _context.Tasks
-                .Where(t => t.due_date < today &&
-                            t.status != "Done" &&
-                            t.status != "Dropped")
+            List<TaskItem> tasks = await _context.Tasks
+                .Where(t => t.DueDate < today &&
+                            t.Status != "Done" &&
+                            t.Status != "Dropped")
                 .ToListAsync();
 
             return tasks.Select(MapToDto).ToList();
@@ -77,14 +77,14 @@ namespace TaskManagementApi.Services
 
         public async Task<TaskDto?> GetTaskByIdAsync(int taskId)
         {
-            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.task_id == taskId);
+            TaskItem? task = await _context.Tasks.FirstOrDefaultAsync(t => t.TaskId == taskId);
             return task == null ? null : MapToDto(task);
         }
 
         public async Task<List<TaskDto>> GetMyTasksAsync(string loginId)
         {
-            var tasks = await _context.Tasks
-                .Where(t => t.assigned_to == loginId && t.status != "Dropped")
+            List<TaskItem> tasks = await _context.Tasks
+                .Where(t => t.AssignedTo == loginId && t.Status != "Dropped")
                 .ToListAsync();
 
             return tasks.Select(MapToDto).ToList();
@@ -92,49 +92,49 @@ namespace TaskManagementApi.Services
 
         public async Task<TaskDto?> StartTaskAsync(int taskId, string loginId)
         {
-            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.task_id == taskId);
+            TaskItem? task = await _context.Tasks.FirstOrDefaultAsync(t => t.TaskId == taskId);
 
-            if (task == null || task.assigned_to != loginId || task.status != "Pending")
+            if (task == null || task.AssignedTo != loginId || task.Status != "Pending")
                 return null;
 
-            task.status = "InProgress";
+            task.Status = "InProgress";
             await _context.SaveChangesAsync();
             return MapToDto(task);
         }
 
         public async Task<TaskDto?> SubmitForReviewAsync(int taskId, string loginId)
         {
-            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.task_id == taskId);
+            TaskItem? task = await _context.Tasks.FirstOrDefaultAsync(t => t.TaskId == taskId);
 
-            if (task == null || task.assigned_to != loginId || task.status != "InProgress")
+            if (task == null || task.AssignedTo != loginId || task.Status != "InProgress")
                 return null;
 
-            task.status = "Review";
+            task.Status = "Review";
             await _context.SaveChangesAsync();
             return MapToDto(task);
         }
 
         public async Task<TaskDto?> MarkDoneAsync(int taskId, string adminId)
         {
-            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.task_id == taskId);
+            TaskItem? task = await _context.Tasks.FirstOrDefaultAsync(t => t.TaskId == taskId);
 
-            if (task == null || task.status == "Done" || task.status == "Dropped")
+            if (task == null || task.Status == "Done" || task.Status == "Dropped")
                 return null;
 
-            task.status = "Done";
-            task.actual_completed_date = DateTime.Today;
+            task.Status = "Done";
+            task.ActualCompleted_date = DateTime.Today;
             await _context.SaveChangesAsync();
             return MapToDto(task);
         }
 
         public async Task<TaskDto?> DropTaskAsync(int taskId, string adminId)
         {
-            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.task_id == taskId);
+            TaskItem? task = await _context.Tasks.FirstOrDefaultAsync(t => t.TaskId == taskId);
 
-            if (task == null || task.status == "Done" || task.status == "Dropped")
+            if (task == null || task.Status == "Done" || task.Status == "Dropped")
                 return null;
 
-            task.status = "Dropped";
+            task.Status = "Dropped";
             await _context.SaveChangesAsync();
             return MapToDto(task);
         }
@@ -143,15 +143,15 @@ namespace TaskManagementApi.Services
         {
             return new TaskDto
             {
-                taskId = task.task_id,
-                title = task.title,
-                description = task.description,
-                createDate = task.create_date,
-                dueDate = task.due_date,
-                actualCompletedDate = task.actual_completed_date,
-                status = task.status,
-                assignedTo = task.assigned_to,
-                createdBy = task.created_by
+                taskId = task.TaskId,
+                Title = task.Title,
+                Description = task.Description,
+                CreateDate = task.CreateDate,
+                DueDate = task.DueDate,
+                ActualCompletedDate = task.ActualCompleted_date,
+                Status = task.Status,
+                AssignedTo = task.AssignedTo,
+                CreatedBy = task.CreatedDy
             };
         }
     }

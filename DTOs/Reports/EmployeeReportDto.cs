@@ -2,11 +2,11 @@
 {
     public class EmployeeReportDto
     {
-        public required string loginId { get; set; }
-        public required string name { get; set; }
-        public int totalAssigned { get; set; }
-        public int completedInTime { get; set; }
-        public int overdueCount { get; set; }
-        public string ratioCompletedToOverdue { get; set; } = string.Empty;
+        public required string LoginId { get; set; }
+        public required string Name { get; set; }
+        public int TotalAssigned { get; set; }
+        public int CompletedInTime { get; set; }
+        public int OverdueCount { get; set; }
+        public string RatioCompletedToOverdue { get; set; } = string.Empty;
     }
 }

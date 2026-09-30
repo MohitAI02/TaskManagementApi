@@ -5,14 +5,14 @@ namespace TaskManagementApi.DTOs.Tasks
     public class CreateTaskDto
     {
         [Required]
-        public required string title { get; set; }
+        public required string Title { get; set; }
 
-        public string? description { get; set; }
-
-        [Required]
-        public DateTime dueDate { get; set; }
+        public string? Description { get; set; }
 
         [Required]
-        public required string assignedTo { get; set; }
+        public DateTime DueDate { get; set; }
+
+        [Required]
+        public required string AssignedTo { get; set; }
     }
 }
