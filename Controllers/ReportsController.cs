@@ -8,7 +8,7 @@ namespace TaskManagementApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReportsController : ControllerBase
+    public class ReportsController : Controller
     {
         private const string LoginHeader = "X-Login-Id";
 

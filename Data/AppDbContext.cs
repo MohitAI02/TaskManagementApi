@@ -15,14 +15,6 @@ namespace TaskManagementApi.Data
         public DbSet<User> Users { get; set; }
         public DbSet<TaskItem> Tasks { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Role>().ToTable("roles");
-            modelBuilder.Entity<User>().ToTable("users");
-            modelBuilder.Entity<TaskItem>().ToTable("tasks");
-
-        }
+       
     }
 }

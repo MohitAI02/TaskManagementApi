@@ -17,6 +17,7 @@ namespace TaskManagementApi.Services
         public async Task<LoginResponseDto?> LoginAsync(LoginRequestDto request)
         {
              User? user = await _context.Users
+                .Include(u => u.Role)
                 .FirstOrDefaultAsync(u =>
                     u.LoginId == request.LoginId &&
                     u.Password == request.Password);

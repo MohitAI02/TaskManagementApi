@@ -44,6 +44,9 @@ namespace TaskManagementApi.Services
 
             return MapToDto(task);
         }
+       
+
+
 
         public async Task<List<TaskDto>> GetAllTasksAsync(TaskFilterDto filter)
         {
@@ -83,8 +86,13 @@ namespace TaskManagementApi.Services
                             t.Status != "Dropped")
                 .ToListAsync();
 
-            return tasks.Select(MapToDto).ToList();
+            return tasks
+                .Select(MapToDto)
+                .ToList();
         }
+
+
+
 
         public async Task<TaskDto?> GetTaskByIdAsync(int taskId)
         {
@@ -98,7 +106,9 @@ namespace TaskManagementApi.Services
                 .Where(t => t.AssignedTo == loginId && t.Status != "Dropped")
                 .ToListAsync();
 
-            return tasks.Select(MapToDto).ToList();
+            return tasks
+            .Select(MapToDto)
+            .ToList();
         }
 
         public async Task<TaskDto?> StartTaskAsync(int taskId, string loginId)

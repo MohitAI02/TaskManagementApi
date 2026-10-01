@@ -18,7 +18,7 @@ namespace TaskManagementApi.Services
         public async Task<EmployeeDto?> CreateEmployeeAsync(CreateEmployeeDto dto)
         {
             User? existingEmployee = await _context.Users
-                .FirstOrDefaultAsync(User => User.LoginId == dto.Email);
+                .FirstOrDefaultAsync(u => u.LoginId == dto.Email);
 
             if (existingEmployee != null)
             {
