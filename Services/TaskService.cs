@@ -47,18 +47,29 @@ namespace TaskManagementApi.Services
 
         public async Task<List<TaskDto>> GetAllTasksAsync(TaskFilterDto filter)
         {
-            IQueryable<TaskItem> query = _context.Tasks.AsQueryable();
+            List<TaskItem> tasks = await _context.Tasks.ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(filter.Status))
-                query = query.Where(t => t.Status == filter.Status);
+            {
+                tasks = tasks
+                    .Where(t => t.Status == filter.Status)
+                    .ToList();
+            }
 
             if (filter.FromDate.HasValue)
-                query = query.Where(t => t.DueDate >= filter.FromDate.Value.Date);
+            {
+                tasks = tasks
+                    .Where(t => t.DueDate >= filter.FromDate.Value.Date)
+                    .ToList();
+            }
 
             if (filter.ToDate.HasValue)
-                query = query.Where(t => t.DueDate <= filter.ToDate.Value.Date);
+            {
+                tasks = tasks
+                    .Where(t => t.DueDate <= filter.ToDate.Value.Date)
+                    .ToList();
+            }
 
-            List<TaskItem> tasks = await query.ToListAsync();
             return tasks.Select(MapToDto).ToList();
         }
 

@@ -18,7 +18,6 @@ namespace TaskManagementApi.Services
         public async Task<EmployeeReportDto?> GetEmployeeReportAsync(string loginId)
         {
             User? employee = await _context.Users
-                .Include(u => u.Role)
                 .FirstOrDefaultAsync(u =>
                     u.LoginId == loginId &&
                     u.Role != null &&
@@ -39,7 +38,6 @@ namespace TaskManagementApi.Services
         public async Task<List<EmployeeReportDto>> GetAllEmployeeReportsAsync()
         {
             List<User> employees = await _context.Users
-                .Include(u => u.Role)
                 .Where(u => u.Role != null && u.Role.RoleName == "EMPLOYEE")
                 .ToListAsync();
 
@@ -62,9 +60,7 @@ namespace TaskManagementApi.Services
         private static EmployeeReportDto BuildReport(User employee, List<TaskItem> tasks)
         {
             DateTime today = DateTime.Today;
-
             int totalAssigned = tasks.Count;
-
             int completedInTime = tasks.Count(t =>
                 t.Status == "Done" &&
                 t.ActualCompleted_date.HasValue &&

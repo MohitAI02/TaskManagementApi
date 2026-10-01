@@ -9,7 +9,6 @@ namespace TaskManagementApi.Services
     public class AuthService : IAuthService
     {
         private readonly AppDbContext _context;
-
         public AuthService(AppDbContext context)
         {
             _context = context;
@@ -21,12 +20,10 @@ namespace TaskManagementApi.Services
                 .FirstOrDefaultAsync(u =>
                     u.LoginId == request.LoginId &&
                     u.Password == request.Password);
-
             if (user == null)
             {
                 return null;
             }
-
             return new LoginResponseDto
             {
                 UserId = user.UserId,
